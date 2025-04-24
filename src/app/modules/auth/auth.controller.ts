@@ -3,6 +3,7 @@ import catchAsync from "../../../shared/catchAsync";
 import sendResponse from "../../../shared/sendResponse";
 import config from "../../../config";
 import { AuthService } from "./auth.service";
+import AppError from "../../errors/AppError";
 
 const registerUser = catchAsync(async (req, res) => {
   const result = await AuthService.registerUserIntoDB(req?.body);
@@ -63,6 +64,33 @@ const refreshToken = catchAsync(async (req, res) => {
   });
 });
 
+const forgetPassword = catchAsync(async (req, res) => {
+  const email = req?.body?.email;
+  const result = await AuthService.forgetPassword(email);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Password Reset link has been sent!",
+    data: result,
+  });
+});
+
+const resetPassword = catchAsync(async (req, res) => {
+  const token = req.headers.authorization;
+
+  if (!token) {
+    throw new AppError(httpStatus.BAD_REQUEST, "Something went wrong !");
+  }
+
+  const result = await AuthService.resetPassword(req.body, token);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Password reset successfully!",
+    data: result,
+  });
+});
+
 const changePassword = catchAsync(async (req, res) => {
   const result = await AuthService.changePassword(req.body, req.user);
   sendResponse(res, {
@@ -73,20 +101,11 @@ const changePassword = catchAsync(async (req, res) => {
   });
 });
 
-const updateUserStatus = catchAsync(async (req, res) => {
-  const result = await AuthService.updateUserStatus(req.body);
-  sendResponse(res, {
-    success: true,
-    statusCode: httpStatus.OK,
-    message: `User status changed successfully`,
-    data: result,
-  });
-});
-
 export const AuthController = {
   registerUser,
   loginUser,
   refreshToken,
+  forgetPassword,
+  resetPassword,
   changePassword,
-  updateUserStatus,
 };

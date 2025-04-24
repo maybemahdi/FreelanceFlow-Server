@@ -27,10 +27,13 @@ const auth = (...roles: string[]) => {
       req.user = verifiedUser;
 
       if (roles.length && !roles.includes(verifiedUser.role)) {
-        throw new AppError(httpStatus.FORBIDDEN, "Forbidden!");
+        throw new AppError(httpStatus.FORBIDDEN, "Forbidden Access!");
       }
       next();
-    } catch (err) {
+    } catch (err: any) {
+      if (err.name === "TokenExpiredError") {
+        throw new AppError(httpStatus.FORBIDDEN, "Token is expired!");
+      }
       next(err);
     }
   };

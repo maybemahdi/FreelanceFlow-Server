@@ -1,6 +1,5 @@
 import { z } from "zod";
 
-// Validation for user registration
 export const registerUserValidation = z.object({
   name: z
     .string({
@@ -24,7 +23,6 @@ export const registerUserValidation = z.object({
     .min(10, "Phone number must be at least 10 character long"),
 });
 
-// Validation for user login
 export const loginUserValidation = z.object({
   email: z
     .string({
@@ -34,6 +32,27 @@ export const loginUserValidation = z.object({
   password: z.string({
     required_error: "Password is required",
   }),
+});
+
+export const forgetPasswordValidationSchema = z.object({
+  email: z
+    .string({
+      required_error: "Email is required",
+    })
+    .email("Email must be a valid email address"),
+});
+
+export const resetPasswordValidationSchema = z.object({
+  email: z
+    .string({
+      required_error: "Email is required",
+    })
+    .email("Email must be a valid email address"),
+  newPassword: z
+    .string({
+      required_error: "User password is required!",
+    })
+    .min(6, "Password must be at least 6 characters long"),
 });
 
 // Types inferred from the Zod schemas

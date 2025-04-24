@@ -1,10 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import jwt, { JwtPayload, Secret } from "jsonwebtoken";
 
-const generateToken = (payload: any, secret: Secret, expiresIn: string) => {
+const generateToken = (
+  payload: any,
+  secret: Secret,
+  expiresIn: number | string,
+) => {
   const options: jwt.SignOptions = {
     algorithm: "HS256",
-    expiresIn: Number(expiresIn),
+    expiresIn: expiresIn as jwt.SignOptions['expiresIn'],
   };
 
   const token = jwt.sign(payload, secret, options);
