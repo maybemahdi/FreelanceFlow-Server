@@ -12,8 +12,16 @@ export const createClientZodSchema = z.object({
     .min(10, "Phone number is too short"),
   company: z.string().optional(),
   notes: z.string().optional(),
-  ownerId: z.string().uuid("Invalid ownerId format"),
+});
+
+export const updateClientZodSchema = z.object({
+  name: z.string().optional(),
+  email: z.string().email("Invalid email address").optional(),
+  phoneNumber: z.string().optional(),
+  company: z.string().optional(),
+  notes: z.string().optional(),
 });
 
 // Type inference from schema (optional, but useful)
 export type CreateClientZodInput = z.infer<typeof createClientZodSchema>;
+export type UpdateClientZodInput = z.infer<typeof updateClientZodSchema>;

@@ -24,5 +24,4 @@ export interface ICreateClient {
   phoneNumber: string;
   company?: string;
   notes?: string;
-  ownerId: string;
 }
