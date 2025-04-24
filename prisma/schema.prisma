@@ -12,6 +12,11 @@ enum UserRole {
   ADMIN
 }
 
+enum UserStatus {
+  ACTIVE
+  BLOCKED
+}
+
 enum ProjectStatus {
   NOT_STARTED
   IN_PROGRESS
@@ -26,15 +31,15 @@ enum InteractionType {
 }
 
 model User {
-  id           String   @id @default(uuid())
+  id           String     @id @default(uuid())
   name         String
-  email        String   @unique
-  profilePhoto String
+  email        String     @unique
+  profilePhoto String?
   password     String
   phoneNumber  String
-  role         UserRole @default(FREELANCER)
-  status       String
-  isDeleted    Boolean
+  role         UserRole   @default(FREELANCER)
+  status       UserStatus @default(ACTIVE)
+  isDeleted    Boolean    @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -104,6 +109,8 @@ model Interaction {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@map("interactions")
 }
 
 model Reminder {
@@ -116,4 +123,6 @@ model Reminder {
   project   Project? @relation(fields: [projectId], references: [id])
   ownerId   String?
   owner     User?    @relation(fields: [ownerId], references: [id])
+
+  @@map("reminders")
 }
