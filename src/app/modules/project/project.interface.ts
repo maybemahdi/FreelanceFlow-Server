@@ -21,6 +21,4 @@ export interface ICreateProject {
   budget: number;
   deadline: string;
   clientId: string;
-  ownerId: string;
-  status?: ProjectStatus;
 }
