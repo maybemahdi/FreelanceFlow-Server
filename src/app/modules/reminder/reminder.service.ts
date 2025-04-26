@@ -209,6 +209,20 @@ const getClientReminders = async (
     orderBy: {
       date: "asc",
     },
+    include: {
+      client: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+      project: {
+        select: {
+          id: true,
+          title: true,
+        },
+      },
+    },
   });
 
   return reminders;
@@ -238,6 +252,20 @@ const getProjectReminders = async (
     orderBy: {
       date: "asc",
     },
+    include: {
+      client: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+      project: {
+        select: {
+          id: true,
+          title: true,
+        },
+      },
+    },
   });
 
   return reminders;
@@ -249,6 +277,20 @@ const getSingleReminder = async (id: string, decodedUser: JwtPayload) => {
     where: {
       id,
       ownerId: decodedUser.id,
+    },
+    include: {
+      client: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+      project: {
+        select: {
+          id: true,
+          title: true,
+        },
+      },
     },
   });
   if (!reminder) {

@@ -3,7 +3,7 @@ import { InteractionType } from "@prisma/client";
 export interface ICreateInteraction {
   date: string;
   type: InteractionType;
-  notes: string;
+  notes?: string;
   projectId: string;
   clientId: string;
 }

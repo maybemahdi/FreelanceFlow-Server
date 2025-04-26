@@ -117,6 +117,7 @@ const deleteInteraction = async (id: string, decodedUser: JwtPayload) => {
     where: {
       id,
       ownerId: decodedUser.id,
+      isDeleted: false,
     },
   });
   if (!existingInteraction) {

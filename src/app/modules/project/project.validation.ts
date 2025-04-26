@@ -5,7 +5,7 @@ export const createProjectValidationSchema = z.object({
   title: z.string().min(1, "Project name is required"),
   budget: z.number().nonnegative(),
   deadline: z
-    .string()
+    .string({required_error: "Project Deadline is required"})
     .regex(/^\d{2}-\d{2}-\d{4}$/, "Deadline must be in dd-mm-yyyy format"),
   clientId: z.string().uuid("Invalid client ID format"),
 });

@@ -4,6 +4,8 @@ import UserRoutes from "../modules/user/user.route";
 import ClientRoutes from "../modules/client/client.route";
 import ProjectRoutes from "../modules/project/project.route";
 import FreelancerRoutes from "../modules/freelancer/freelancer.route";
+import InteractionRoutes from "../modules/interaction/interaction.route";
+import ReminderRoutes from "../modules/reminder/reminder.route";
 
 const router = Router();
 const routes = [
@@ -26,6 +28,14 @@ const routes = [
   {
     path: "/freelancer",
     destination: FreelancerRoutes,
+  },
+  {
+    path: "/interaction",
+    destination: InteractionRoutes,
+  },
+  {
+    path: "/reminder",
+    destination: ReminderRoutes,
   },
 ];
 

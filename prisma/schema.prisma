@@ -28,6 +28,7 @@ enum InteractionType {
   CALL
   EMAIL
   MEET
+  CHAT
 }
 
 model User {
@@ -98,7 +99,7 @@ model Interaction {
   id        String          @id @default(uuid())
   date      DateTime
   type      InteractionType
-  notes     String
+  notes     String?
   projectId String
   project   Project         @relation(fields: [projectId], references: [id])
   clientId  String
