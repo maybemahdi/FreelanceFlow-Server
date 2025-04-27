@@ -1,13 +1,14 @@
 {
   "name": "server-template-prisma",
-  "module": "index.ts",
-  "type": "module",
-  "private": true,
+  "version": "1.0.0",
+  "main": "index.js",
   "scripts": {
     "start": "node ./dist/server.js",
     "start:prod": "nodemon ./dist/server.js",
-    "dev": "bun --watch src/server.ts",
+    "dev": "ts-node-dev --respawn --transpile-only ./src/server.ts",
+    "prod": "NODE_ENV=production node ./dist/server.js",
     "build": "tsc",
+    "postinstall": "prisma generate",
     "lint": "eslint src/**/*.ts",
     "lint:fix": "eslint src/**/*.ts --fix",
     "format": "prettier --ignore-path .gitignore --write \"./src/**/*.+(js|ts|json)\"",
@@ -40,7 +41,7 @@
   "dependencies": {
     "@prisma/client": "^6.6.0",
     "bcrypt": "^5.1.1",
-    "cloudinary": "^2.6.0",
+    "cloudinary": "^1.41.3",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",

@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { Server } from "http";
-import app from "./app";
 import config from "./config";
+import app from "./app";
 
 let server: Server;
 

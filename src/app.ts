@@ -9,7 +9,18 @@ const app: Application = express();
 
 // middlewares and parser
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "http://localhost:3001",
+      "http://localhost:5173",
+      "http://localhost:5174",
+    ], // Allow requests from your Vite app
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"], // Specify allowed methods if necessary
+    credentials: true, // If you're using cookies or HTTP authentication
+  }),
+);
 app.use(cookieParser());
 
 // get started

@@ -38,5 +38,10 @@ AuthRoutes.post(
   auth(UserRole.FREELANCER, UserRole.ADMIN),
   AuthController.changePassword,
 );
+AuthRoutes.get(
+  "/get-me",
+  auth(UserRole.FREELANCER, UserRole.ADMIN),
+  AuthController.getMe,
+);
 
 export default AuthRoutes;
