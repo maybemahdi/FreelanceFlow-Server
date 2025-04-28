@@ -1,11 +1,14 @@
 import { JwtPayload } from "jsonwebtoken";
 import prisma from "../../../shared/prisma";
-import { ICreateProject } from "./project.interface";
+import { ICreateProject, IProjectFilterRequest } from "./project.interface";
 import AppError from "../../errors/AppError";
 import httpStatus from "http-status";
-import { ProjectStatus } from "@prisma/client";
+import { Prisma, ProjectStatus } from "@prisma/client";
 import isUserExistsById from "../../utils/isUserExistById";
 import { dateHelpers } from "../../../helpers/dateHelpers";
+import { IPaginationOptions } from "../../interfaces/pagination";
+import { paginationHelper } from "../../../helpers/paginationHelper";
+import { projectSearchAbleFields } from "./project.constant";
 
 const createProject = async (
   payload: ICreateProject,
@@ -149,7 +152,44 @@ const getAllProjectByClient = async (
   return projects;
 };
 
-const getAllProjectByFreelancer = async (decodedUser: JwtPayload) => {
+const getAllProjectByFreelancer = async (
+  decodedUser: JwtPayload,
+  params: IProjectFilterRequest,
+  options: IPaginationOptions,
+) => {
+  const { page, limit, skip } = paginationHelper.calculatePagination(options);
+  const { searchTerm, ...filterData } = params;
+
+  const andConditions: Prisma.ProjectWhereInput[] = [];
+
+  if (params.searchTerm) {
+    andConditions.push({
+      OR: projectSearchAbleFields.map((field) => ({
+        [field]: {
+          contains: params.searchTerm,
+          mode: "insensitive",
+        },
+      })),
+    });
+  }
+
+  if (Object.keys(filterData).length > 0) {
+    andConditions.push({
+      AND: Object.keys(filterData).map((key) => ({
+        [key]: {
+          equals: (filterData as any)[key],
+        },
+      })),
+    });
+  }
+
+  andConditions.push({
+    ownerId: decodedUser.id,
+    isDeleted: false,
+  });
+
+  const whereConditions: Prisma.ProjectWhereInput = { AND: andConditions };
+
   const isFreelancerExists = await isUserExistsById(decodedUser.id);
   if (!isFreelancerExists) {
     throw new AppError(
@@ -158,13 +198,31 @@ const getAllProjectByFreelancer = async (decodedUser: JwtPayload) => {
     );
   }
   const projects = await prisma.project.findMany({
-    where: {
-      ownerId: decodedUser.id,
-      isDeleted: false,
-    },
+    where: whereConditions,
+    skip,
+    take: limit,
+    orderBy:
+      options.sortBy && options.sortOrder
+        ? {
+            [options.sortBy]: options.sortOrder,
+          }
+        : {
+            createdAt: "desc",
+          },
   });
 
-  return projects;
+  const total = await prisma.project.count({
+    where: whereConditions,
+  });
+
+  return {
+    meta: {
+      page,
+      limit,
+      total,
+    },
+    data: projects,
+  };
 };
 
 const getSingleProjectByFreelancer = async (

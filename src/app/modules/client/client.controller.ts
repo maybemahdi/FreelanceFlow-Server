@@ -1,5 +1,7 @@
 import catchAsync from "../../../shared/catchAsync";
+import pick from "../../../shared/pick";
 import sendResponse from "../../../shared/sendResponse";
+import { clientFilterableFields } from "./client.constant";
 import { ClientService } from "./client.service";
 import httpStatus from "http-status";
 
@@ -28,7 +30,9 @@ const updateClient = catchAsync(async (req, res) => {
 });
 
 const getMyClients = catchAsync(async (req, res) => {
-  const result = await ClientService.getMyClients(req.user);
+  const filters = pick(req.query, clientFilterableFields);
+  const options = pick(req.query, ["limit", "page", "sortBy", "sortOrder"]);
+  const result = await ClientService.getMyClients(req.user, filters, options);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,

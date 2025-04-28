@@ -1,5 +1,7 @@
 import catchAsync from "../../../shared/catchAsync";
+import pick from "../../../shared/pick";
 import sendResponse from "../../../shared/sendResponse";
+import { projectFilterableFields } from "./project.constant";
 import { ProjectService } from "./project.service";
 import httpStatus from "http-status";
 
@@ -65,12 +67,19 @@ const getAllProjectByClient = catchAsync(async (req, res) => {
 });
 
 const getAllProjectByFreelancer = catchAsync(async (req, res) => {
-  const result = await ProjectService.getAllProjectByFreelancer(req.user);
+  const filters = pick(req.query, projectFilterableFields);
+  const options = pick(req.query, ["limit", "page", "sortBy", "sortOrder"]);
+  const result = await ProjectService.getAllProjectByFreelancer(
+    req.user,
+    filters,
+    options,
+  );
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: "Projects retrieved successfully",
-    data: result,
+    meta: result.meta,
+    data: result.data,
   });
 });
 

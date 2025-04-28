@@ -25,3 +25,12 @@ export interface ICreateClient {
   company?: string;
   notes?: string;
 }
+
+
+export type IClientFilterRequest = {
+  name?: string | undefined;
+  email?: string | undefined;
+  phoneNumber?: string | undefined;
+  company?: string | undefined;
+  notes?: string | undefined;
+};

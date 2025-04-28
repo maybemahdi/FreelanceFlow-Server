@@ -22,3 +22,8 @@ export interface ICreateProject {
   deadline: string;
   clientId: string;
 }
+
+export type IProjectFilterRequest = {
+  status?: ProjectStatus;
+  searchTerm?: string;
+};
