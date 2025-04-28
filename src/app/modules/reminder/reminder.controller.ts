@@ -1,5 +1,7 @@
 import catchAsync from "../../../shared/catchAsync";
+import pick from "../../../shared/pick";
 import sendResponse from "../../../shared/sendResponse";
+import { reminderFilterableFields } from "./reminder.constant";
 import { ReminderService } from "./reminder.service";
 import httpStatus from "http-status";
 
@@ -73,6 +75,23 @@ const getProjectReminders = catchAsync(async (req, res) => {
   });
 });
 
+const getAllReminder = catchAsync(async (req, res) => {
+  const filters = pick(req.query, reminderFilterableFields);
+  const options = pick(req.query, ["limit", "page", "sortBy", "sortOrder"]);
+  const result = await ReminderService.getAllReminder(
+    req.user,
+    filters,
+    options,
+  );
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Reminders retrieved successfully",
+    meta: result.meta,
+    data: result.data,
+  });
+});
+
 const getSingleReminder = catchAsync(async (req, res) => {
   const result = await ReminderService.getSingleReminder(
     req.params.id,
@@ -93,5 +112,6 @@ export const ReminderController = {
   getUpcomingReminders,
   getClientReminders,
   getProjectReminders,
+  getAllReminder,
   getSingleReminder,
 };

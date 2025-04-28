@@ -37,7 +37,8 @@ const getMyClients = catchAsync(async (req, res) => {
     statusCode: httpStatus.OK,
     success: true,
     message: "Clients fetched successfully",
-    data: result,
+    meta: result.meta,
+    data: result.data,
   });
 });
 

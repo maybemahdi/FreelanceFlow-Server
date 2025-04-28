@@ -3,7 +3,15 @@ import prisma from "../../../shared/prisma";
 import AppError from "../../errors/AppError";
 import httpStatus from "http-status";
 import { dateHelpers } from "../../../helpers/dateHelpers";
-import { ICreateReminder, IUpdateReminder } from "./reminder.interface";
+import {
+  ICreateReminder,
+  IReminderFilterRequest,
+  IUpdateReminder,
+} from "./reminder.interface";
+import { IPaginationOptions } from "../../interfaces/pagination";
+import { paginationHelper } from "../../../helpers/paginationHelper";
+import { Prisma } from "@prisma/client";
+import { reminderSearchAbleFields } from "./reminder.constant";
 
 // Create Reminder
 const createReminder = async (
@@ -271,6 +279,82 @@ const getProjectReminders = async (
   return reminders;
 };
 
+// Get all reminders for a freelancer
+const getAllReminder = async (
+  decodedUser: JwtPayload,
+  params: IReminderFilterRequest,
+  options: IPaginationOptions,
+) => {
+  const { page, limit, skip } = paginationHelper.calculatePagination(options);
+  const { searchTerm, ...filterData } = params;
+
+  const andConditions: Prisma.ReminderWhereInput[] = [];
+
+  if (params.searchTerm) {
+    andConditions.push({
+      OR: reminderSearchAbleFields.map((field) => ({
+        [field]: {
+          contains: params.searchTerm,
+          mode: "insensitive",
+        },
+      })),
+    });
+  }
+
+  if (Object.keys(filterData).length > 0) {
+    andConditions.push({
+      AND: Object.keys(filterData).map((key) => ({
+        [key]: {
+          equals: (filterData as any)[key],
+        },
+      })),
+    });
+  }
+
+  andConditions.push({
+    ownerId: decodedUser.id,
+    isDeleted: false,
+  });
+
+  const whereConditions: Prisma.ReminderWhereInput = {
+    AND: andConditions,
+  };
+
+  const reminders = await prisma.reminder.findMany({
+    where: whereConditions,
+    orderBy: {
+      date: "asc",
+    },
+    include: {
+      client: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+      project: {
+        select: {
+          id: true,
+          title: true,
+        },
+      },
+    },
+  });
+
+  const total = await prisma.reminder.count({
+    where: whereConditions,
+  });
+
+  return {
+    meta: {
+      page,
+      limit,
+      total,
+    },
+    data: reminders,
+  };
+};
+
 // Get single reminder
 const getSingleReminder = async (id: string, decodedUser: JwtPayload) => {
   const reminder = await prisma.reminder.findUnique({
@@ -307,5 +391,6 @@ export const ReminderService = {
   getUpcomingReminders,
   getClientReminders,
   getProjectReminders,
+  getAllReminder,
   getSingleReminder,
 };

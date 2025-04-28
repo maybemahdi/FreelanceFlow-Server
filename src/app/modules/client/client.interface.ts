@@ -27,10 +27,11 @@ export interface ICreateClient {
 }
 
 
-export type IClientFilterRequest = {
+export interface IClientFilterRequest {
   name?: string | undefined;
   email?: string | undefined;
   phoneNumber?: string | undefined;
   company?: string | undefined;
   notes?: string | undefined;
+  searchTerm?: string | undefined;
 };

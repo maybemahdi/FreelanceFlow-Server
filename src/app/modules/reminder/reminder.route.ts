@@ -47,5 +47,10 @@ ReminderRoutes.get(
   auth(UserRole.FREELANCER),
   ReminderController.getSingleReminder,
 );
+ReminderRoutes.get(
+  "/",
+  auth(UserRole.FREELANCER),
+  ReminderController.getAllReminder,
+);
 
 export default ReminderRoutes;

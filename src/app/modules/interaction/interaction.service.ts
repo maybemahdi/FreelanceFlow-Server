@@ -5,8 +5,13 @@ import httpStatus from "http-status";
 import { dateHelpers } from "../../../helpers/dateHelpers";
 import {
   ICreateInteraction,
+  IInteractionFilterRequest,
   IUpdateInteraction,
 } from "./interaction.interface";
+import { IPaginationOptions } from "../../interfaces/pagination";
+import { paginationHelper } from "../../../helpers/paginationHelper";
+import { Prisma } from "@prisma/client";
+import { interactionSearchAbleFields } from "./interaction.constant";
 
 // Create Interaction
 const createInteraction = async (
@@ -190,6 +195,84 @@ const getClientInteractions = async (
   return interactions;
 };
 
+// Get all interactions for a freelancer
+const getAllInteraction = async (
+  decodedUser: JwtPayload,
+  params: IInteractionFilterRequest,
+  options: IPaginationOptions,
+) => {
+  const { page, limit, skip } = paginationHelper.calculatePagination(options);
+  const { searchTerm, ...filterData } = params;
+
+  const andConditions: Prisma.InteractionWhereInput[] = [];
+
+  if (params.searchTerm) {
+    andConditions.push({
+      OR: interactionSearchAbleFields.map((field) => ({
+        [field]: {
+          contains: params.searchTerm,
+          mode: "insensitive",
+        },
+      })),
+    });
+  }
+
+  if (Object.keys(filterData).length > 0) {
+    andConditions.push({
+      AND: Object.keys(filterData).map((key) => ({
+        [key]: {
+          equals: (filterData as any)[key],
+        },
+      })),
+    });
+  }
+
+  andConditions.push({
+    ownerId: decodedUser.id,
+    isDeleted: false,
+  });
+
+  const whereConditions: Prisma.InteractionWhereInput = {
+    AND: andConditions,
+  };
+
+  const interactions = await prisma.interaction.findMany({
+    where: whereConditions,
+    include: {
+      client: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+      project: {
+        select: {
+          id: true,
+          title: true,
+        },
+      },
+    },
+    skip,
+    take: limit,
+    orderBy: {
+      date: "desc",
+    },
+  });
+
+  const total = await prisma.interaction.count({
+    where: whereConditions,
+  });
+
+  return {
+    meta: {
+      page,
+      limit,
+      total,
+    },
+    data: interactions,
+  };
+};
+
 // Get single interaction
 const getSingleInteraction = async (id: string, decodedUser: JwtPayload) => {
   const interaction = await prisma.interaction.findUnique({
@@ -211,5 +294,6 @@ export const InteractionService = {
   deleteInteraction,
   getProjectInteractions,
   getClientInteractions,
+  getAllInteraction,
   getSingleInteraction,
 };

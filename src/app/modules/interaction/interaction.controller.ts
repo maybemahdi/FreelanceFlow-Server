@@ -1,5 +1,7 @@
 import catchAsync from "../../../shared/catchAsync";
+import pick from "../../../shared/pick";
 import sendResponse from "../../../shared/sendResponse";
+import { interactionFilterableFields } from "./interaction.constant";
 import { InteractionService } from "./interaction.service";
 import httpStatus from "http-status";
 
@@ -66,6 +68,23 @@ const getClientInteractions = catchAsync(async (req, res) => {
   });
 });
 
+const getAllInteraction = catchAsync(async (req, res) => {
+  const filters = pick(req.query, interactionFilterableFields);
+  const options = pick(req.query, ["limit", "page", "sortBy", "sortOrder"]);
+  const result = await InteractionService.getAllInteraction(
+    req.user,
+    filters,
+    options,
+  );
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Interactions retrieved successfully",
+    meta: result.meta,
+    data: result.data,
+  });
+});
+
 const getSingleInteraction = catchAsync(async (req, res) => {
   const result = await InteractionService.getSingleInteraction(
     req.params.id,
@@ -85,5 +104,6 @@ export const InteractionController = {
   deleteInteraction,
   getProjectInteractions,
   getClientInteractions,
+  getAllInteraction,
   getSingleInteraction,
 };

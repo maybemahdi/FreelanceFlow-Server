@@ -2,7 +2,7 @@ import { JwtPayload } from "jsonwebtoken";
 import prisma from "../../../shared/prisma";
 import AppError from "../../errors/AppError";
 import isUserExistsById from "../../utils/isUserExistById";
-import { ICreateClient } from "./client.interface";
+import { IClientFilterRequest, ICreateClient } from "./client.interface";
 import httpStatus from "http-status";
 import { IProjectFilterRequest } from "../project/project.interface";
 import { IPaginationOptions } from "../../interfaces/pagination";
@@ -75,7 +75,7 @@ const updateClient = async (
 
 const getMyClients = async (
   decodedUser: JwtPayload,
-  params: IProjectFilterRequest,
+  params: IClientFilterRequest,
   options: IPaginationOptions,
 ) => {
   const { page, limit, skip } = paginationHelper.calculatePagination(options);
@@ -120,6 +120,14 @@ const getMyClients = async (
   }
   const result = await prisma.client.findMany({
     where: whereConditions,
+    include: {
+      projects: {
+        select: {
+          id: true,
+          title: true,
+        },
+      },
+    },
     skip,
     take: limit,
     orderBy:

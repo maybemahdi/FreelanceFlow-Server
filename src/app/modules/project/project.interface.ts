@@ -23,7 +23,7 @@ export interface ICreateProject {
   clientId: string;
 }
 
-export type IProjectFilterRequest = {
+export interface IProjectFilterRequest {
   status?: ProjectStatus;
   searchTerm?: string;
 };

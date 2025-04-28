@@ -38,6 +38,11 @@ InteractionRoutes.get(
   InteractionController.getClientInteractions,
 );
 InteractionRoutes.get(
+  "/",
+  auth(UserRole.FREELANCER),
+  InteractionController.getAllInteraction,
+);
+InteractionRoutes.get(
   "/get-single-interaction/:id",
   auth(UserRole.FREELANCER),
   InteractionController.getSingleInteraction,

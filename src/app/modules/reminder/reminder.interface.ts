@@ -11,3 +11,11 @@ export interface IUpdateReminder {
   clientId?: string;
   projectId?: string;
 }
+
+export interface IReminderFilterRequest {
+  clientId?: string | undefined;
+  projectId?: string | undefined;
+  ownerId?: string | undefined;
+  message?: string | undefined;
+  searchTerm?: string | undefined;
+};
