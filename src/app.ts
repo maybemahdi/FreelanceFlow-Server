@@ -16,6 +16,7 @@ app.use(
       "http://localhost:3001",
       "http://localhost:5173",
       "http://localhost:5174",
+      "https://freelance-flow-frontend.vercel.app",
     ], // Allow requests from your Vite app
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"], // Specify allowed methods if necessary
     credentials: true, // If you're using cookies or HTTP authentication
