@@ -1,0 +1,1238 @@
+{
+	"info": {
+		"_postman_id": "fcd5ff2f-7f2c-4b0d-bba6-d6c72f5515c2",
+		"name": "FreelanceFlow",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33239718"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Mahdi Hasan Mahi\",\r\n    \"email\": \"mh7266391@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"phoneNumber\": \"01875661523\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/auth/register",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"mh7266391@gmail.com\",\r\n    \"password\": \"123456\"\r\n}\r\n// {\r\n//     \"email\": \"abc@gmail.com\",\r\n//     \"password\": \"123456\"\r\n// }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/auth/login",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refresh-token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/auth/refresh-token",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"auth",
+								"refresh-token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "forget-password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"mh7266391@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/auth/forget-password",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"auth",
+								"forget-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reset-password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{resetToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"mh7266391@gmail.com\",\r\n    \"newPassword\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/auth/reset-password",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"auth",
+								"reset-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-me",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{local}}/auth/get-me",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"auth",
+								"get-me"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "update-user-status",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"a596c283-70ae-4fc7-8003-38a1c8ad9571\",\r\n    \"status\": \"ACTIVE\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/user/update-user-status",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"user",
+								"update-user-status"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "client",
+			"item": [
+				{
+					"name": "create-client",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"James Madison v2\",\r\n    \"email\": \"james.madisonV2@example.com\",\r\n    \"phoneNumber\": \"+1-345-657-5467\",\r\n    \"company\": \"BDCalling IT\",\r\n    \"notes\": \"Interested in long-term partnership, prefers Zoom meetings.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/client",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"client"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-client",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Sarah Johnson\",\r\n    \"email\": \"sarah.johnson@example.com\",\r\n    \"phoneNumber\": \"+1-202-555-0198\",\r\n    \"company\": \"NovaTech Solutions\",\r\n    \"notes\": \"Interested in long-term partnership, prefers Zoom meetings.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/client/95453567-f397-41cc-a6d9-2914e952d8b2",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"client",
+								"95453567-f397-41cc-a6d9-2914e952d8b2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-my-clients",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{local}}/client",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"client"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-single-client-for-freelancer",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{local}}/client/15433336-b248-429c-892c-550b05fd6e00",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"client",
+								"15433336-b248-429c-892c-550b05fd6e00"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-client-for-freelancer",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{local}}/client/503de5d4-aa42-4c40-9fbb-0b2458dc887f",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"client",
+								"503de5d4-aa42-4c40-9fbb-0b2458dc887f"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "project",
+			"item": [
+				{
+					"name": "create-project",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Ai Model Creation\",\r\n    \"budget\": 50000,\r\n    \"deadline\": \"28-06-2025\",\r\n    \"clientId\": \"15433336-b248-429c-892c-550b05fd6e00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/project",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"project"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-project",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Add new payment gateway\",\r\n    \"budget\": 5000,\r\n    \"deadline\": \"30-05-2025\",\r\n    \"clientId\": \"082b1198-b3eb-4552-8a79-94e85eaba4c1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/project/77f00454-4e9b-4284-b651-1a4059ee426b",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"project",
+								"77f00454-4e9b-4284-b651-1a4059ee426b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-project-status",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"status\": \"IN_PROGRESS\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/project/update-project-status/77f00454-4e9b-4284-b651-1a4059ee426b",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"project",
+								"update-project-status",
+								"77f00454-4e9b-4284-b651-1a4059ee426b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-project",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/project/77f00454-4e9b-4284-b651-1a4059ee426b",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"project",
+								"77f00454-4e9b-4284-b651-1a4059ee426b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-all-project-by-client",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/project/get-all-project-by-client/082b1198-b3eb-4552-8a79-94e85eaba4c1",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"project",
+								"get-all-project-by-client",
+								"082b1198-b3eb-4552-8a79-94e85eaba4c1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-all-project-by-freelancer",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/project/get-all-project-by-freelancer",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"project",
+								"get-all-project-by-freelancer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-single-project-by-freelancer",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/project/get-single-project-by-freelancer/77f00454-4e9b-4284-b651-1a4059ee426b",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"project",
+								"get-single-project-by-freelancer",
+								"77f00454-4e9b-4284-b651-1a4059ee426b"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "freelancer",
+			"item": [
+				{
+					"name": "get-total-clients-by-freelancer",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{local}}/freelancer/get-total-clients-by-freelancer",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"freelancer",
+								"get-total-clients-by-freelancer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-total-projects-by-freelancer",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{local}}/freelancer/get-total-projects-by-freelancer",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"freelancer",
+								"get-total-projects-by-freelancer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-due-soon-reminders-by-freelancer",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{local}}/freelancer/get-due-soon-reminders-by-freelancer",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"freelancer",
+								"get-due-soon-reminders-by-freelancer"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "reminder",
+			"item": [
+				{
+					"name": "create-reminder",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"date\": \"06-05-2025\",\r\n  \"message\": \"Followed up with the client regarding project updates.\",\r\n  \"clientId\": \"15433336-b248-429c-892c-550b05fd6e00\",\r\n  \"projectId\": \"1eca6b13-5413-4888-837d-5de66a182081\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/reminder",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"reminder"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-reminder",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"date\": \"30-04-2025\",\r\n  \"message\": \"Followed up with the client regarding project updates.\",\r\n  \"clientId\": \"082b1198-b3eb-4552-8a79-94e85eaba4c1\",\r\n  \"projectId\": \"77f00454-4e9b-4284-b651-1a4059ee426b\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/reminder/95a42fe9-c139-494c-b791-b5a453d75dbf",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"reminder",
+								"95a42fe9-c139-494c-b791-b5a453d75dbf"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-reminder",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/reminder/95a42fe9-c139-494c-b791-b5a453d75dbf",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"reminder",
+								"95a42fe9-c139-494c-b791-b5a453d75dbf"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-all-reminders-for-freelancer",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/reminder",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"reminder"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-upcoming-reminders",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/reminder/get-upcoming-reminders",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"reminder",
+								"get-upcoming-reminders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-reminders-by-client",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/reminder/get-reminders-by-client/082b1198-b3eb-4552-8a79-94e85eaba4c1",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"reminder",
+								"get-reminders-by-client",
+								"082b1198-b3eb-4552-8a79-94e85eaba4c1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-reminders-by-project",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/reminder/get-reminders-by-project/77f00454-4e9b-4284-b651-1a4059ee426b",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"reminder",
+								"get-reminders-by-project",
+								"77f00454-4e9b-4284-b651-1a4059ee426b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-single-reminder",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/reminder/get-single-reminder/d7dd149f-c562-48d5-8a59-6aba21b40425",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"reminder",
+								"get-single-reminder",
+								"d7dd149f-c562-48d5-8a59-6aba21b40425"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "interaction",
+			"item": [
+				{
+					"name": "create-interaction",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"date\": \"26-04-2025\",\r\n    \"type\": \"CALL\",\r\n    \"notes\": \"New feature\",\r\n    \"projectId\": \"1eca6b13-5413-4888-837d-5de66a182081\",\r\n    \"clientId\": \"15433336-b248-429c-892c-550b05fd6e00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/interaction",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"interaction"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-interaction",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"date\": \"26-04-2025\",\r\n    \"type\": \"MEET\",\r\n    \"notes\": \"New feature\",\r\n    \"projectId\": \"77f00454-4e9b-4284-b651-1a4059ee426b\",\r\n    \"clientId\": \"082b1198-b3eb-4552-8a79-94e85eaba4c1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/interaction/0b2e9f70-a0e1-4f2c-92e0-024bffd04733",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"interaction",
+								"0b2e9f70-a0e1-4f2c-92e0-024bffd04733"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-interaction",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/interaction/0b2e9f70-a0e1-4f2c-92e0-024bffd04733",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"interaction",
+								"0b2e9f70-a0e1-4f2c-92e0-024bffd04733"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-all-interaction-by freelancer",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/interaction",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"interaction"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-interaction-by-project",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/interaction/get-interaction-by-project/77f00454-4e9b-4284-b651-1a4059ee426b",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"interaction",
+								"get-interaction-by-project",
+								"77f00454-4e9b-4284-b651-1a4059ee426b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-interaction-by-client",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/interaction/get-interaction-by-client/082b1198-b3eb-4552-8a79-94e85eaba4c1",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"interaction",
+								"get-interaction-by-client",
+								"082b1198-b3eb-4552-8a79-94e85eaba4c1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-single-interaction",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/interaction/get-single-interaction/0b2e9f70-a0e1-4f2c-92e0-024bffd04733",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"interaction",
+								"get-single-interaction",
+								"0b2e9f70-a0e1-4f2c-92e0-024bffd04733"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

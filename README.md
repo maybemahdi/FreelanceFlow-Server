@@ -1,5 +1,11 @@
 # FreelanceFlow - Overview
-## A simple Mini CRM for FREELANCERS 
+## A simple Mini CRM for FREELANCERS
+
+#### live-link: https://freelance-flow-frontend.vercel.app/
+
+#### frontend: https://github.com/maybemahdFreelanceFlow-Client
+
+#### server: https://github.com/maybemahdFreelanceFlow-Server
 
 ## Setup Instructions  
 1. Clone the repository:  
@@ -72,6 +78,17 @@
 Entity Relationship Diagram Link:  
 ```bash  
 https://drive.google.com/file/d/194CpwcXA_R8Ig9SEDIPTL16wsJKu9Pn_/view?usp=sharing
+``` 
+Postman Documentation:  
+```bash  
+https://documenter.getpostman.com/view/33239718/2sB2j1gBrV
+``` 
+Sample User:  
+```bash  
+{
+    "email": "mh7266391@gmail.com",
+    "password": "123456"
+}
 ``` 
 
 Entity Relationship Overview: 
