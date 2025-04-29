@@ -4,11 +4,19 @@
 ## Setup Instructions  
 1. Clone the repository:  
     ```bash  
-    git clone https://github.com/maybemahdi/FreelanceFlow-Client 
+    #frontend
+    git clone https://github.com/maybemahdi/FreelanceFlow-Client
+
+    #server
+    git clone https://github.com/maybemahdi/FreelanceFlow-Server
     ```  
 2. Navigate to the project directory:  
-    ```bash  
-    cd FreelanceFlow-Client 
+    ```bash
+    #frontend
+    cd FreelanceFlow-Client
+
+    #server
+    cd FreelanceFlow-Server
     ```  
 3. Install dependencies:  
     ```bash  
@@ -19,7 +27,7 @@
     - Add the required variables (e.g., database URL, JWT secret).
     - Example ENV (FRONTEND):
     ```bash  
-    VITE_API_URL=http://localhost:5000/api/v1  
+    VITE_API_URL=  
     ```
     - Example ENV (SERVER):
     ```bash  
