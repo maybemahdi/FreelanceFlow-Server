@@ -32,7 +32,7 @@ const auth = (...roles: string[]) => {
       next();
     } catch (err: any) {
       if (err.name === "TokenExpiredError") {
-        throw new AppError(httpStatus.FORBIDDEN, "Token is expired!");
+        throw new AppError(httpStatus.UNAUTHORIZED, "Token is expired!");
       }
       next(err);
     }
